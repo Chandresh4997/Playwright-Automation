@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('test2', async ({ page }) => {
+test('should add items to cart and proceed to checkout', async ({ page }) => {
   await page.goto('https://rahulshettyacademy.com/seleniumPractise/#/');
   await page.getByRole('link', { name: '+' }).nth(1).click();
   await page.getByRole('button', { name: 'ADD TO CART' }).nth(1).click();
