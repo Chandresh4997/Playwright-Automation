@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('should broowse and add the product to cart', async ({ page }) => {
+test('should browse and add the product to cart', async ({ page }) => {
     await page.goto('https://www.fabindia.com/');
     await page.getByPlaceholder('Search here...').nth(0).fill('shirt');
     await page.keyboard.press('Enter');
