@@ -28,12 +28,12 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: xvfb-run npx playwright test
+        run: npx playwright test
         env:
           DISPLAY: :99
         
       - name: Run Playwright tests
-        run: npx playwright test
+        run: xvfb-run npx playwright test
         env:
           DISPLAY: :99
 
