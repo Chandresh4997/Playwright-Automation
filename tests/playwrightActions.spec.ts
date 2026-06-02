@@ -16,7 +16,9 @@ test('Material selection using Checkbox', async ({ page }) => {
 
 test('Address selection using Radio Button', async ({ page }) => {
     await page.goto('https://www.fabindia.com/login/email');
-    await page.getByRole('button', { name: 'Login using password' }).click();
+    const loginBtn = page.getByRole('button', { name: 'Login using password' })
+    await expect(loginBtn).toBeVisible();
+    await loginBtn.click();
     await page.getByPlaceholder('Enter Email Address').fill('chandreshthakkar9090@gmail.com');
     await page.getByPlaceholder('Password').fill('Chandresh@1105');
     await page.locator('.login-signup-mobile-btn').click();
@@ -36,14 +38,12 @@ test('Address selection using Radio Button', async ({ page }) => {
     await expect(newPage.locator('#savedAddress').nth(0)).toBeChecked();
     await newPage.locator('#savedAddress').nth(1).check();
     await expect(newPage.locator('#savedAddress').nth(1)).toBeChecked();
-    await page.pause();
 });
 
 test('Category selection using Mouse events', async ({ page }) => {
     await page.goto('https://www.fabindia.com/');
     await page.getByRole('link', { name: 'Home & Living' }).first().hover();
     await page.getByRole('link', { name: 'Vases' }).click();
-    await page.pause();
 });
 
 test('Product search using Keyboard events', async ({ page }) => {
@@ -52,12 +52,13 @@ test('Product search using Keyboard events', async ({ page }) => {
     await page.locator('#searchBox').nth(0).press('Control+KeyA');
     await page.locator('#searchBox').nth(0).pressSequentially('jeans', { delay: 100 });
     await page.keyboard.press('Enter');
-    await page.pause();
 });
 
 test('Determining Date of Birth using Date Picker', async ({ page }) => {
     await page.goto('https://www.fabindia.com/login/email');
-    await page.getByRole('button', { name: 'Login using password' }).click();
+    const loginBtn = page.getByRole('button', { name: 'Login using password' })
+    await expect(loginBtn).toBeVisible();
+    await loginBtn.click();
     await page.getByPlaceholder('Enter Email Address').fill('chandreshthakkar9090@gmail.com');
     await page.getByPlaceholder('Password').fill('Chandresh@1105');
     await page.locator('.login-signup-mobile-btn').click();
