@@ -48,7 +48,6 @@ test('Radio button handling', async ({page}) => {
     await page.locator('#impressiveRadio').check();
     await expect(page.locator('#yesRadio')).not.toBeChecked();
     await expect(page.locator('#impressiveRadio')).toBeChecked();
-    await page.pause();
 })
 
 test('Category selection using Mouse events', async ({ page }) => {

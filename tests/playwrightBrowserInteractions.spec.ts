@@ -17,10 +17,10 @@ test('Multiple tabs/windows handling', async ({ browser }) => {
     await page.waitForTimeout(1000);
 
     await newPage.getByText('Add to cart ').click();
-    await page.pause();
     await newPage.getByRole('link', { name: 'items currently in your cart' }).click();
     await  expect(newPage.getByRole('heading', { name: 'Blue Cotton Slim Fit Shirt'})).toBeVisible();
     await newPage.close();
+    await expect(page).toHaveURL('https://www.fabindia.com/search?query=shirt');
 });
 
 test('Handling Alert', async ({page})=>{
