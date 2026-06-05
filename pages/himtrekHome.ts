@@ -1,0 +1,54 @@
+import {Page, Locator} from "@playwright/test"
+
+export class HimTrekHomePage{
+
+    page:Page;
+    logo: Locator;
+    navHome: Locator;
+    navTreks: Locator;
+    navHimtrekStays: Locator;
+    navRoadTrips: Locator;
+    navMore: Locator;
+    linkLogin: Locator;
+    inputUsername: Locator;
+    inputPassword: Locator;
+    btnLogin: Locator;
+    userProfile: Locator;
+    inputLocation: Locator;
+    inputCalendar: Locator;
+    btnSearch: Locator;
+    btnGoToTop: Locator;
+
+
+
+    constructor(page: Page){
+        this.page = page;
+        this.logo = page.locator('.custom-logo');
+        this.navHome = page.locator('#menu-item-14482');
+        this.navTreks = page.locator('#menu-item-14485');
+        this.navHimtrekStays = page.locator('#menu-item-20414');
+        this.navRoadTrips = page.locator('#menu-item-14484');
+        this.navMore = page.locator('#menu-item-18127')
+        this.linkLogin = page.locator('.login-item');
+        this.inputUsername = page.getByRole('textbox', { name: 'Email or Username' });
+        this.inputPassword = page.getByRole('textbox', { name: 'Password' });
+        this.btnLogin = page.getByRole('button', { name: 'Log in' });
+        this.userProfile = page.locator('#dropdown-dashboard');
+        this.inputLocation = page.locator('#location_name_activity');
+        this.inputCalendar = page.locator('.form-date-field');
+        this.btnSearch = page.getByRole('button', {name: 'Search'});
+        this.btnGoToTop = page.locator('#gotop');
+    }
+
+
+    async himtrekURL(){
+        await this.page.goto("https://himtrek.co.in/");
+    }
+
+    async login(username: string, password: string){
+        await this.linkLogin.click();
+        await this.inputUsername.fill(username);
+        await this.inputPassword.fill(password);
+        await this.btnLogin.click();
+    }
+}
