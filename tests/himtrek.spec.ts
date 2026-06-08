@@ -6,7 +6,7 @@ test('himtrek flow', async ({ page }) => {
     const placeHome = new HimTrekHomePage(page)
 
     await placeHome.himtrekURL();
-    await placeHome.login('chandresh4997', 'Chandresh@1105');
+    await placeHome.login(process.env.USERNAME!,process.env.PASSWORD!);
 
     // await page.goto('https://himtrek.co.in/');
     // await page.getByRole('link', {name: "Login"}).click();

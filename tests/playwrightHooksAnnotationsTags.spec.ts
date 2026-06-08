@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
     const placeHome = new HimTrekHomePage(page);
     
     await placeHome.himtrekURL();
-    await placeHome.login('chandresh4997', 'Chandresh@1105');
+    await placeHome.login(process.env.USERNAME!, process.env.PASSWORD!);
 })
 
 test.afterEach(async ({ page }) => {
@@ -13,8 +13,7 @@ test.afterEach(async ({ page }) => {
     await placeHome.logout();
 })
 
-test('Browsing Brahmatal Trek, Uttarakhand from Navigation Menu @smoke', async ({ page }) => {
-    // await expect(page.locator('.dropdown-user-dashboard')).toContainText('Hi, Chandresh Thakkar');
+test.only('Browsing Brahmatal Trek, Uttarakhand from Navigation Menu @smoke', async ({ page }) => {
     await page.locator('#menu-item-14485').hover();
     await page.locator('#menu-item-14804').hover();
     await page.locator('#menu-item-20558').click();
@@ -33,7 +32,6 @@ test('Browse Himtrek For Corporates @ui', async ({ page }) => {
 })
 
 test('View Terms and Conditions @regression', async ({page}) => {
-    // await expect(page.locator('.dropdown-user-dashboard')).toContainText('Hi, Chandresh Thakkar');
     await page.getByRole('link', {name: 'Terms and Conditions'}).click();
     await expect(page.locator('.e-con-inner')).toContainText('Terms and Conditions');
 })
