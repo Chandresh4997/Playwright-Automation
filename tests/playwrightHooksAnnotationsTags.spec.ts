@@ -13,7 +13,7 @@ test.afterEach(async ({ page }) => {
     await placeHome.logout();
 })
 
-test.only('Browsing Brahmatal Trek, Uttarakhand from Navigation Menu @smoke', async ({ page }) => {
+test('Browsing Brahmatal Trek, Uttarakhand from Navigation Menu @smoke', async ({ page }) => {
     await page.locator('#menu-item-14485').hover();
     await page.locator('#menu-item-14804').hover();
     await page.locator('#menu-item-20558').click();
