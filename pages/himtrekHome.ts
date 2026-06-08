@@ -1,4 +1,4 @@
-import {Page, Locator} from "@playwright/test"
+import {Page, Locator, expect} from "@playwright/test"
 
 export class HimTrekHomePage{
 
@@ -10,6 +10,8 @@ export class HimTrekHomePage{
     navRoadTrips: Locator;
     navMore: Locator;
     linkLogin: Locator;
+    nameLoggedin: Locator;
+    linkLogout: Locator;
     inputUsername: Locator;
     inputPassword: Locator;
     btnLogin: Locator;
@@ -30,6 +32,8 @@ export class HimTrekHomePage{
         this.navRoadTrips = page.locator('#menu-item-14484');
         this.navMore = page.locator('#menu-item-18127')
         this.linkLogin = page.locator('.login-item');
+        this.nameLoggedin = page.locator('.dropdown-user-dashboard');
+        this.linkLogout = page.getByRole('link', {name: 'Log out'});
         this.inputUsername = page.getByRole('textbox', { name: 'Email or Username' });
         this.inputPassword = page.getByRole('textbox', { name: 'Password' });
         this.btnLogin = page.getByRole('button', { name: 'Log in' });
@@ -44,11 +48,18 @@ export class HimTrekHomePage{
     async himtrekURL(){
         await this.page.goto("https://himtrek.co.in/");
     }
-
+    
     async login(username: string, password: string){
         await this.linkLogin.click();
         await this.inputUsername.fill(username);
         await this.inputPassword.fill(password);
         await this.btnLogin.click();
+        await expect(this.nameLoggedin).toContainText('Hi, Chandresh Thakkar');
+    }
+    
+    async logout(){
+        await this.logo.click();
+        await this.userProfile.click();
+        await this.linkLogout.click();
     }
 }
