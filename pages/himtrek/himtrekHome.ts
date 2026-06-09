@@ -1,8 +1,8 @@
-import {Page, Locator, expect} from "@playwright/test"
+import { Page, Locator, expect } from "@playwright/test"
 
-export class HimTrekHomePage{
+export class HimTrekHomePage {
 
-    page:Page;
+    page: Page;
     logo: Locator;
     navHome: Locator;
     navTreks: Locator;
@@ -23,7 +23,7 @@ export class HimTrekHomePage{
 
 
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.logo = page.locator('.custom-logo');
         this.navHome = page.locator('#menu-item-14482');
@@ -33,31 +33,31 @@ export class HimTrekHomePage{
         this.navMore = page.locator('#menu-item-18127')
         this.linkLogin = page.locator('.login-item');
         this.nameLoggedin = page.locator('.dropdown-user-dashboard');
-        this.linkLogout = page.getByRole('link', {name: 'Log out'});
+        this.linkLogout = page.getByRole('link', { name: 'Log out' });
         this.inputUsername = page.getByRole('textbox', { name: 'Email or Username' });
         this.inputPassword = page.getByRole('textbox', { name: 'Password' });
         this.btnLogin = page.getByRole('button', { name: 'Log in' });
         this.userProfile = page.locator('#dropdown-dashboard');
         this.inputLocation = page.locator('#location_name_activity');
         this.inputCalendar = page.locator('.form-date-field');
-        this.btnSearch = page.getByRole('button', {name: 'Search'});
+        this.btnSearch = page.getByRole('button', { name: 'Search' });
         this.btnGoToTop = page.locator('#gotop');
     }
 
 
-    async himtrekURL(){
+    async himtrekURL() {
         await this.page.goto("https://himtrek.co.in/");
     }
-    
-    async login(username: string, password: string){
+
+    async login(username: string, password: string) {
         await this.linkLogin.click();
         await this.inputUsername.fill(username);
         await this.inputPassword.fill(password);
         await this.btnLogin.click();
         await expect(this.nameLoggedin).toContainText('Hi, Chandresh Thakkar');
     }
-    
-    async logout(){
+
+    async logout() {
         await this.logo.click();
         await this.userProfile.click();
         await this.linkLogout.click();

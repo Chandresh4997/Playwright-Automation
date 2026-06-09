@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Assertions', async ({ page }) => {
-    await page.goto("https://www.patanjaliayurved.net/")
-    
+    await page.goto("https://www.patanjaliayurved.net/");    
     await page.getByRole('button', { name: '×' }).click();
     await page.locator('.users-icon').click();
     await expect.soft(page.locator('#loginemail')).toBeEmpty();

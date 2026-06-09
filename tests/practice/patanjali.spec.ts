@@ -1,5 +1,5 @@
 import test, { expect } from "@playwright/test";
-import { PatanjaliHomePage } from "../pages/patanjaliHome";
+import { PatanjaliHomePage } from "../../pages/practice/patanjaliHome";
 
 test('Validate ghee product', async({page}) => {
     const productHome = new PatanjaliHomePage(page)

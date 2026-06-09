@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { HimTrekHomePage } from '../pages/himtrekHome';
+import { HimTrekHomePage } from '../../pages/himtrek/himtrekHome';
 
 test.beforeEach(async ({ page }) => {
     const placeHome = new HimTrekHomePage(page);
