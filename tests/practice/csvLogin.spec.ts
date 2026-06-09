@@ -21,7 +21,7 @@ test('Login test using CSV data', async ({ page }) => {
   }
 });
 
-test.only('Login test using JSON data', async ({ page }) => {
+test('Login test using JSON data', async ({ page }) => {
   for (const user of testFile) {
     await page.goto('https://www.saucedemo.com/');
     await page.locator('#user-name').fill(user.username);
