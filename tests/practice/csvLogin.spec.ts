@@ -4,7 +4,7 @@ import { readCsv } from '../../utils/readCsv';
 let users: any[];
 
 test.beforeAll(async () => {
-  users = await readCsv('/home/chandresh.thakkar@simform.dom/Downloads/Test_Data.csv');
+  users = await readCsv('data/Test_Data.csv');
   console.log(users);
 });
 
