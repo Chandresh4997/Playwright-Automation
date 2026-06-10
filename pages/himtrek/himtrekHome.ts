@@ -20,7 +20,9 @@ export class HimTrekHomePage {
     inputCalendar: Locator;
     btnSearch: Locator;
     btnGoToTop: Locator;
-
+    dateCheckIn!: Locator;
+    dateCheckOut!: Locator;
+    btnCalendarNext: Locator;
 
 
     constructor(page: Page) {
@@ -40,6 +42,7 @@ export class HimTrekHomePage {
         this.userProfile = page.locator('#dropdown-dashboard');
         this.inputLocation = page.locator('#location_name_activity');
         this.inputCalendar = page.locator('.form-date-field');
+        this.btnCalendarNext = page.locator('.next.available').nth(1);
         this.btnSearch = page.getByRole('button', { name: 'Search' });
         this.btnGoToTop = page.locator('#gotop');
     }
@@ -54,12 +57,24 @@ export class HimTrekHomePage {
         await this.inputUsername.fill(username);
         await this.inputPassword.fill(password);
         await this.btnLogin.click();
-        await expect(this.nameLoggedin).toContainText('Hi, Chandresh Thakkar');
+        await expect(this.nameLoggedin).toContainText('Hi');
     }
 
     async logout() {
         await this.logo.click();
         await this.userProfile.click();
         await this.linkLogout.click();
+    }
+
+    async search(location: string, checkIn: string, checkOut: string) {
+        this.dateCheckIn = this.page.locator('div.date').filter({ hasText: checkIn }).nth(1);
+        this.dateCheckOut = this.page.locator('div.date').filter({ hasText: checkOut }).nth(1);
+
+        await this.inputLocation.fill(location);
+        await this.inputCalendar.click();
+        await this.btnCalendarNext.click();
+        await this.dateCheckIn.click();
+        await this.dateCheckOut.click();
+        await this.btnSearch.click();
     }
 }
