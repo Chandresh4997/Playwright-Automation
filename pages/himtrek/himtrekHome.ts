@@ -33,7 +33,7 @@ export class HimTrekHomePage {
         this.navHimtrekStays = page.locator('#menu-item-20414');
         this.navRoadTrips = page.locator('#menu-item-14484');
         this.navMore = page.locator('#menu-item-18127')
-        this.linkLogin = page.locator('.login-item');
+        this.linkLogin = page.getByRole('link', {name: 'Login'});
         this.nameLoggedin = page.locator('.dropdown-user-dashboard');
         this.linkLogout = page.getByRole('link', { name: 'Log out' });
         this.inputUsername = page.getByRole('textbox', { name: 'Email or Username' });
