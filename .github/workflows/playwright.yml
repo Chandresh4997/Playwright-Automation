@@ -8,7 +8,7 @@ on:
   # workflow_dispatch:
 
   schedule:
-    - cron: '32 6 * * *'
+    - cron: '06 12 * * *'
 
 jobs:
   test:
