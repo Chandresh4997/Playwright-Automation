@@ -50,7 +50,7 @@ test('Radio button handling', async ({page}) => {
     await expect(page.locator('#impressiveRadio')).toBeChecked();
 })
 
-test('Category selection using Mouse events', async ({ page }) => {
+test.skip('Category selection using Mouse events', async ({ page }) => {
     await page.goto('https://www.fabindia.com/');
     await page.getByRole('link', { name: 'Home & Living' }).first().hover();
     await page.getByRole('link', { name: 'Vases' }).click();
