@@ -35,6 +35,7 @@ export default defineConfig({
     headless: true,
     actionTimeout: 90000,
     navigationTimeout: 90000,
+    storageState: 'data/auth.json',
   },
 
   expect: {

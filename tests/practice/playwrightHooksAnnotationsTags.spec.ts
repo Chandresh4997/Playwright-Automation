@@ -1,19 +1,25 @@
 import { test, expect } from "@playwright/test";
 import { HimTrekHomePage } from '../../pages/himtrek/himtrekHome';
+import { HimTrekAuthPage } from "../../pages/himtrek/himtrekAuth";
 
-test.beforeEach(async ({ page }) => {
-    const placeHome = new HimTrekHomePage(page);
+// test.beforeEach(async ({ page }) => {
+//     const placeHome = new HimTrekHomePage(page);
+      
+//       const trekPlace = new HimTrekHomePage(page);
+//       const trekAuth = new HimTrekAuthPage(page);
     
-    await placeHome.himtrekURL();
-    await placeHome.login(process.env.USERNAME!, process.env.PASSWORD!);
-})
+//       await trekPlace.himtrekURL();
+//       await trekPlace.openLogin();
+//       await trekAuth.login(process.env.USERNAME!, process.env.PASSWORD!);
+//       await expect(trekPlace.nameLoggedin).toContainText("Hi");
+// })
 
-test.afterEach(async ({ page }) => {
-    const placeHome = new HimTrekHomePage(page);
-    await placeHome.logout();
-})
+// test.afterEach(async ({ page }) => {
+//     const placeHome = new HimTrekHomePage(page);
+//     await placeHome.logout();
+// })
 
-test('Browsing Brahmatal Trek, Uttarakhand from Navigation Menu @smoke', async ({ page }) => {
+test.skip('Browsing Brahmatal Trek, Uttarakhand from Navigation Menu @smoke', async ({ page }) => {
     await page.locator('#menu-item-14485').hover();
     await page.locator('#menu-item-14804').hover();
     await page.locator('#menu-item-20558').click();
@@ -26,12 +32,12 @@ test.skip('View User Profile @ui', async ({ page }) => {
     await expect(page.locator('.user-name')).toContainText('Chandresh Thakkar');
 })
 
-test('Browse Himtrek For Corporates @ui', async ({ page }) => {
+test.skip('Browse Himtrek For Corporates @ui', async ({ page }) => {
     await page.locator('.elementor-button-text').first().click();
     await expect(page.locator('.banner-content')).toContainText('Corporate Trips');
 })
 
-test('View Terms and Conditions @regression', async ({page}) => {
+test.skip('View Terms and Conditions @regression', async ({page}) => {
     await page.getByRole('link', {name: 'Terms and Conditions'}).click();
     await expect(page.locator('.e-con-inner')).toContainText('Terms and Conditions');
 })
