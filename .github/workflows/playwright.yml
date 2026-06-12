@@ -5,9 +5,19 @@ on:
   #   branches: [ main ]
   # pull_request:
   #   branches: [ main ]
-  workflow_dispatch:
   schedule:
     - cron: '*/20 * * * *'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to filter tests'
+        required: false
+        default: '@regression'
+        type: choice
+        options:
+          - '@regression'
+          - '@smoke'
+          - '@sanity'
 
 jobs:
   test:
@@ -40,7 +50,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx cross-env TEST_ENV=$TEST_ENV playwright test --reporter=list
+        run: npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list
 
       - name: Upload Test Report (playwright-report)
         if: always()
