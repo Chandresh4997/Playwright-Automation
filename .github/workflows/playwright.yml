@@ -1,13 +1,13 @@
 name: CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '*/20 * * * *'
 
 jobs:
   test:
