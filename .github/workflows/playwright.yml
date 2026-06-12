@@ -12,9 +12,10 @@ on:
       tag:
         description: 'Tag to filter tests'
         required: false
-        default: '@regression'
+        default: 'all'
         type: choice
         options:
+          - 'all'
           - '@regression'
           - '@smoke'
           - '@sanity'
@@ -50,7 +51,12 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list
+        run: |
+          if [ "${{ github.event.inputs.tag }}" = "all" ]; then
+            npx cross-env TEST_ENV=$TEST_ENV playwright test --reporter=list
+          else
+            npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list
+          fi
 
       - name: Upload Test Report (playwright-report)
         if: always()
