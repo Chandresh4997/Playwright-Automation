@@ -1,5 +1,4 @@
-import { Page, test, Locator, expect } from "@playwright/test";
-import { HimTrekHomePage } from "./himtrekHome";
+import { Page, Locator, expect } from "@playwright/test";
 
 export class HimTrekAuthPage {
     page: Page;

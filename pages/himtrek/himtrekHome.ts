@@ -1,10 +1,10 @@
-import { Page, Locator, expect } from "@playwright/test"
+import { Page, Locator, expect } from "@playwright/test";
 
 export class HimTrekHomePage {
 
     page: Page;
     logo: Locator;
-    navHome: Locator;
+    navHome: Locator;   
     navTreks: Locator;
     navHimtrekStays: Locator;
     navRoadTrips: Locator;
@@ -20,6 +20,7 @@ export class HimTrekHomePage {
     dateCheckIn!: Locator;
     dateCheckOut!: Locator;
     btnCalendarNext: Locator;
+    linkCareer: Locator;
 
 
     constructor(page: Page) {
@@ -39,6 +40,7 @@ export class HimTrekHomePage {
         this.btnCalendarNext = page.locator('.next.available').nth(1);
         this.btnSearch = page.getByRole('button', { name: 'Search' });
         this.btnGoToTop = page.locator('#gotop');
+        this.linkCareer = page.getByRole('link', {name: "Careers"});
     }
 
 
@@ -66,5 +68,9 @@ export class HimTrekHomePage {
         await this.dateCheckIn.click();
         await this.dateCheckOut.click();
         await this.btnSearch.click();
+    }
+
+    async openCareers(){
+        await this.linkCareer.click();
     }
 }
