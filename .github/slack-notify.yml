@@ -1,10 +1,10 @@
 name: CI with Slack notifications
 
 on:
-  # push:
-  #   branches: [main]
-  # pull_request:
-  #   branches: [main]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       tag:
@@ -17,7 +17,7 @@ on:
           - '@regression'
           - '@smoke'
           - '@sanity'
-          
+
 jobs:
   build:
     runs-on: ubuntu-latest
