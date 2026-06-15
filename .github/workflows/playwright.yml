@@ -53,9 +53,9 @@ jobs:
       - name: Run Playwright tests
         run: |
           if [ "${{ github.event.inputs.tag }}" = "all" ]; then
-            npx cross-env TEST_ENV=$TEST_ENV playwright test --reporter=list
+            npx cross-env TEST_ENV=$TEST_ENV playwright test --reporter=list,html
           else
-            npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list
+            npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list,html
           fi
 
       - name: Upload Test Report (playwright-report)
