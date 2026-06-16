@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run tests
-        run: npm test --reporter=list,html  # replace with your actual build/test command
+        run: npx playwright test --reporter=list,html
 
       - name: Notify Slack on success
         if: success()
