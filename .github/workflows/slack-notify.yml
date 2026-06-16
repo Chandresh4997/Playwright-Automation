@@ -52,7 +52,7 @@ jobs:
         if: always()
         run: |
           RAW_TIME="${{ github.event.head_commit.timestamp }}"
-          FORMATTED=$(date -d "$RAW_TIME" "+%d %b %Y  %I:%M %p IST" 2>/dev/null || echo "N/A")
+          FORMATTED=$(TZ="Asia/Kolkata" date -d "$RAW_TIME" "+%d %b %Y  %I:%M %p IST")
           echo "FORMATTED_TIME=$FORMATTED" >> $GITHUB_ENV
 
       - name: Upload Playwright report
