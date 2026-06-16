@@ -48,6 +48,50 @@ jobs:
             npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list,html
           fi
 
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      # - name: Notify Slack on success
+      #   if: success()
+      #   uses: slackapi/slack-github-action@v2.0.0
+      #   with:
+      #     webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #     webhook-type: incoming-webhook
+      #     payload: |
+      #       {
+      #         "text": "✅ *${{ github.repository }}* build passed on `${{ github.ref_name }}`",
+      #         "attachments": [{
+      #           "color": "good",
+      #           "fields": [
+      #             { "title": "Triggered by", "value": "${{ github.actor }}", "short": true },
+      #             { "title": "Commit", "value": "${{ github.sha }}", "short": true }
+      #           ]
+      #         }]
+      #       }
+
+      # - name: Notify Slack on failure
+      #   if: failure()
+      #   uses: slackapi/slack-github-action@v2.0.0
+      #   with:
+      #     webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #     webhook-type: incoming-webhook
+      #     payload: |
+      #       {
+      #         "text": "❌ *${{ github.repository }}* build failed on `${{ github.ref_name }}`",
+      #         "attachments": [{
+      #           "color": "danger",
+      #           "fields": [
+      #             { "title": "Triggered by", "value": "${{ github.actor }}", "short": true },
+      #             { "title": "Run URL", "value": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}", "short": false }
+      #           ]
+      #         }]
+      #       }
+
       - name: Notify Slack on success
         if: success()
         uses: slackapi/slack-github-action@v2.0.0
@@ -56,14 +100,57 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "✅ *${{ github.repository }}* build passed on `${{ github.ref_name }}`",
-              "attachments": [{
-                "color": "good",
-                "fields": [
-                  { "title": "Triggered by", "value": "${{ github.actor }}", "short": true },
-                  { "title": "Commit", "value": "${{ github.sha }}", "short": true }
-                ]
-              }]
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "✅ Tests Passed"
+                  }
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    { "type": "mrkdwn", "text": "🏠 *Repository*\n<${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>" },
+                    { "type": "mrkdwn", "text": "🌿 *Branch*\n`${{ github.ref_name }}`" },
+                    { "type": "mrkdwn", "text": "👤 *Triggered by*\n${{ github.actor }}" },
+                    { "type": "mrkdwn", "text": "🏷️ *Tag Filter*\n`${{ github.event.inputs.tag || 'all' }}`" },
+                    { "type": "mrkdwn", "text": "🔨 *Commit*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|`${{ github.sha }}`>" },
+                    { "type": "mrkdwn", "text": "⏱️ *Run number*\n#${{ github.run_number }}" }
+                  ]
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "🕐 Completed at ${{ github.event.head_commit.timestamp || 'N/A' }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": { "type": "plain_text", "text": "🔍 View Run" },
+                      "style": "primary",
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    },
+                    {
+                      "type": "button",
+                      "text": { "type": "plain_text", "text": "📂 View Commit" },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}"
+                    }
+                  ]
+                }
+              ]
             }
 
       - name: Notify Slack on failure
@@ -74,12 +161,65 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "❌ *${{ github.repository }}* build failed on `${{ github.ref_name }}`",
-              "attachments": [{
-                "color": "danger",
-                "fields": [
-                  { "title": "Triggered by", "value": "${{ github.actor }}", "short": true },
-                  { "title": "Run URL", "value": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}", "short": false }
-                ]
-              }]
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "❌ Tests Failed"
+                  }
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    { "type": "mrkdwn", "text": "🏠 *Repository*\n<${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>" },
+                    { "type": "mrkdwn", "text": "🌿 *Branch*\n`${{ github.ref_name }}`" },
+                    { "type": "mrkdwn", "text": "👤 *Triggered by*\n${{ github.actor }}" },
+                    { "type": "mrkdwn", "text": "🏷️ *Tag Filter*\n`${{ github.event.inputs.tag || 'all' }}`" },
+                    { "type": "mrkdwn", "text": "🔨 *Commit*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|`${{ github.sha }}`>" },
+                    { "type": "mrkdwn", "text": "⏱️ *Run number*\n#${{ github.run_number }}" }
+                  ]
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "⚠️ *Action needed:* Please check the run logs and fix the failing tests."
+                  }
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "🕐 Failed at ${{ github.event.head_commit.timestamp || 'N/A' }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": { "type": "plain_text", "text": "🔍 View Logs" },
+                      "style": "danger",
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    },
+                    {
+                      "type": "button",
+                      "text": { "type": "plain_text", "text": "📂 View Commit" },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}"
+                    }
+                  ]
+                }
+              ]
             }
