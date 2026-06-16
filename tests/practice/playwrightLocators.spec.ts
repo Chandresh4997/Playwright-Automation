@@ -7,7 +7,7 @@ test('should browse and add the product to cart', async ({ page }) => {
 
     const [newPage] = await Promise.all([
         page.context().waitForEvent('page'), 
-        page.getByAltText('Blue Cotton Slim Fit Shirt').click() 
+        page.getByAltText('Blue Cotton Slim Fit Shirt').first().click() 
     ]);
     await newPage.locator('.custom_size_box').getByText('M', { exact: true }).click();
     await newPage.getByText('Add to cart ').click();
