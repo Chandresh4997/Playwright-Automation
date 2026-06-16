@@ -24,15 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # - name: Run tests
-      #   run: npm test   # replace with your actual build/test command
-      - name: Run Playwright tests
-        run: |
-          if [ "${{ github.event.inputs.tag }}" = "all" ]; then
-            npx cross-env TEST_ENV=$TEST_ENV playwright test --reporter=list,html
-          else
-            npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list,html
-          fi
+      - name: Run tests
+        run: npm test --reporter=list,html  # replace with your actual build/test command
 
       - name: Notify Slack on success
         if: success()
