@@ -6,11 +6,11 @@ test('Multiple tabs/windows handling', async ({ browser }) => {
     const page = await context.newPage();
 
     await page.goto('https://www.fabindia.com/');
-    await page.getByPlaceholder('Search here...').nth(0).fill('shirt');
+    await page.getByPlaceholder('Search here...').nth(0).fill('Blue Cotton Slim Fit Shirt');
     await page.keyboard.press('Enter');
 
     const pagePromise = context.waitForEvent('page');
-    page.getByAltText('Blue Cotton Slim Fit Shirt').click() 
+    page.getByAltText('Blue Cotton Slim Fit Shirt').first().click() 
     const newPage = await pagePromise;
     
     await newPage.locator('.custom_size_box').getByText('M', { exact: true }).click();
@@ -20,7 +20,7 @@ test('Multiple tabs/windows handling', async ({ browser }) => {
     await newPage.getByRole('link', { name: 'items currently in your cart' }).click();
     await  expect(newPage.getByRole('heading', { name: 'Blue Cotton Slim Fit Shirt'})).toBeVisible();
     await newPage.close();
-    await expect(page).toHaveURL('https://www.fabindia.com/search?query=shirt');
+    await expect(page).toHaveURL('https://www.fabindia.com/search?query=Blue%20Cotton%20Slim%20Fit%20Shirt');
 });
 
 test('Handling Alert', async ({page})=>{
