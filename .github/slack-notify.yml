@@ -2,7 +2,7 @@ name: CI with Slack notifications
 
 on:
   push:
-    branches: [main]
+    branches: [feature/slack-notifications]
   pull_request:
     branches: [main]
   workflow_dispatch:
