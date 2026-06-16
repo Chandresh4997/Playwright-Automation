@@ -21,6 +21,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TEST_ENV: qa
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -42,8 +47,6 @@ jobs:
           else
             npx cross-env TEST_ENV=$TEST_ENV playwright test --grep="${{ github.event.inputs.tag }}" --reporter=list,html
           fi
-      # - name: Run tests
-      #   run: npx playwright test --reporter=list,html
 
       - name: Notify Slack on success
         if: success()
