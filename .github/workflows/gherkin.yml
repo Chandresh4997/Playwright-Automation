@@ -1,26 +1,31 @@
 name: Gherkin CI
 
 on:
-  push:
-    branches: [ feature/bdd-localdb) ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
     inputs:
+      run_type:
+        description: 'Run type (only run when set to gherkin)'
+        required: true
+        default: 'gherkin'
+        type: choice
+        options:
+        - 'gherkin'
+        - 'all'
       tag:
         description: 'Tag to filter tests'
         required: false
         default: 'all'
         type: choice
         options:
-          - 'all'
-          - '@regression'
-          - '@smoke'
-          - '@sanity'
+        - 'all'
+        - '@regression'
+        - '@smoke'
+        - '@sanity'
 
 jobs:
   gherkin-tests:
     name: Run Gherkin (Cucumber) tests
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_type == 'gherkin' }}
     runs-on: ubuntu-latest
 
     env:
