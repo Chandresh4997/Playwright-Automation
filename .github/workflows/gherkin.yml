@@ -2,7 +2,7 @@ name: Gherkin CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feature/bdd-localdb) ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
   gherkin-tests:
     name: Run Gherkin (Cucumber) tests
     runs-on: ubuntu-latest
-    
+
     env:
       TEST_ENV: qa
       USERNAME: ${{ secrets.USERNAME }}
