@@ -26,8 +26,28 @@ export class HimTrekUserProfilePage{
     }
     
     async browseActivity(){
+        // robustly wait for and click navigation links, then the activity item
+        await this.linkWishlist.waitFor({ state: 'visible', timeout: 15000 });
         await this.linkWishlist.click();
+
+        await this.linkActivity.waitFor({ state: 'visible', timeout: 15000 });
         await this.linkActivity.click();
-        await this.trekDayaraBugyal.click();
+
+        // The activity image can be lazy-loaded/hidden; try visible first, otherwise force-click after scrolling
+        try {
+            await this.trekDayaraBugyal.waitFor({ state: 'visible', timeout: 20000 });
+            await this.trekDayaraBugyal.scrollIntoViewIfNeeded();
+            await this.trekDayaraBugyal.click();
+        } catch (err) {
+            // fallback: ensure attached, scroll and force-click
+            try {
+                await this.trekDayaraBugyal.waitFor({ state: 'attached', timeout: 20000 });
+                await this.trekDayaraBugyal.scrollIntoViewIfNeeded();
+                await this.trekDayaraBugyal.click({ force: true });
+            } catch (err2) {
+                // rethrow original for visibility into failure
+                throw err;
+            }
+        }
     }
 }

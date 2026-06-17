@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HimTrekHomePage } from '../../pages/himtrek/himtrekHome';
 import { HimTrekAuthPage } from '../../pages/himtrek/himtrekAuth';
 
-test('User Login', async({ page }) => {
+test('User Login @himtrek', async({ page }) => {
   const trekPlace = new HimTrekHomePage(page);
   const trekAuth = new HimTrekAuthPage(page);
 

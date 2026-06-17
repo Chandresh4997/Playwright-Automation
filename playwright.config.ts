@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
-dotenv.config({override: true});
+dotenv.config({ override: true });
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -39,8 +39,8 @@ export default defineConfig({
     navigationTimeout: 90000,
     storageState: 'data/auth.json',
     launchOptions: {
-    slowMo: 1000,
-  },
+      slowMo: 1000,
+    },
   },
 
   expect: {
@@ -48,8 +48,8 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
- projects: [
-    // Login project runs first
+  projects: [
+    // Step 1 — Login, save session + insert user into DB
     {
       name: 'setup',
       testMatch: /.*himtrekLogin\.spec\.ts/,
@@ -58,11 +58,25 @@ export default defineConfig({
       },
     },
 
-    // All other tests depend on login
+    // Step 2 — Search trek + submit enquiry + insert into enquiries table
+    {
+      name: 'search',
+      testMatch: /.*himtrekSearch\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'data/auth.json',
+      },
+    },
+
+    // Step 3 — Verify user + enquiry data in DB
     {
       name: 'chromium',
-      dependencies: ['setup'],
-      testIgnore: /.*himtrekLogin\.spec\.ts/,
+      dependencies: ['setup', 'search'],
+      testIgnore: [
+        /.*himtrekLogin\.spec\.ts/,
+        /.*himtrekSearch\.spec\.ts/,
+      ],
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'data/auth.json',

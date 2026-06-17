@@ -45,10 +45,11 @@ export class HimTrekHomePage {
 
 
     async himtrekURL() {
-        await this.page.goto("https://himtrek.co.in/");
+        await this.page.goto("https://himtrek.co.in/", { waitUntil: 'load', timeout: 60000 });
     }
 
     async openLogin() {
+        await this.linkLogin.waitFor({ state: 'visible', timeout: 15000 });
         await this.linkLogin.click();
     }
 

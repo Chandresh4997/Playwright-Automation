@@ -1,0 +1,285 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "himtrek-careers;browse-careers-and-view-terms-and-conditions",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "Browse Careers and view Terms and Conditions",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 185402864
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I open the HimTrek home page",
+            "match": {
+              "location": "features/step_definitions/himtrek.login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26870138661
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I open the careers page",
+            "match": {
+              "location": "features/step_definitions/himtrek.careers.steps.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1338338905
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 7,
+            "name": "I should see the Careers heading",
+            "match": {
+              "location": "features/step_definitions/himtrek.careers.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 380207680
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "I open the terms and conditions",
+            "match": {
+              "location": "features/step_definitions/himtrek.careers.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1362962510
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "I should see the Terms and Conditions heading",
+            "match": {
+              "location": "features/step_definitions/himtrek.careers.steps.ts:23"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 800588406
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 210382968
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "himtrek-careers",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "HimTrek Careers",
+    "tags": [],
+    "uri": "features/himtrek/careers.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "himtrek-search-and-enquiry;user-searches-treks,-adds-to-wishlist-and-submits-enquiry",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "User searches treks, adds to wishlist and submits enquiry",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 132982403
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I open the HimTrek home page",
+            "match": {
+              "location": "features/step_definitions/himtrek.login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23248196845
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I search for \"Uttarakhand\" with checkin \"14\" and checkout \"16\"",
+            "match": {
+              "location": "features/step_definitions/himtrek.search.steps.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1614778992
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I apply search filters and open a trek",
+            "match": {
+              "location": "features/step_definitions/himtrek.search.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5765590464
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "I add the trek to wishlist",
+            "match": {
+              "location": "features/step_definitions/himtrek.search.steps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45998594
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I submit an enquiry using \"ENV\" as email",
+            "match": {
+              "location": "features/step_definitions/himtrek.search.steps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 202927924
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 548384057
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "himtrek-search-and-enquiry",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "HimTrek Search and Enquiry",
+    "tags": [],
+    "uri": "features/himtrek/search.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "himtrek-user-profile;update-user-profile-and-browse-activity",
+        "keyword": "Scenario",
+        "line": 2,
+        "name": "Update User Profile and Browse Activity",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 130917992
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I open the user profile page",
+            "match": {
+              "location": "features/step_definitions/himtrek.userprofile.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21682091533
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 4,
+            "name": "I enter info about myself",
+            "match": {
+              "location": "features/step_definitions/himtrek.userprofile.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24092403
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 5,
+            "name": "I can browse my activity",
+            "match": {
+              "location": "features/step_definitions/himtrek.userprofile.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1994842021
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 3835399075
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "himtrek-user-profile",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "HimTrek User Profile",
+    "tags": [],
+    "uri": "features/himtrek/userprofile.feature"
+  }
+]

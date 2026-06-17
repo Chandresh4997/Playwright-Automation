@@ -3,18 +3,31 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:gherkin:login": "cucumber-js --tags @login --require-module ts-node/register --require \"features/**/*.ts\" --format json:reports/cucumber-login.json --format progress",
+    "test:gherkin:rest": "cucumber-js --tags \"not @login\" --require-module ts-node/register --require \"features/**/*.ts\" --format json:reports/cucumber-rest.json --format progress",
+    "test:gherkin:ordered": "npm run test:gherkin:login && npm run test:gherkin:rest",
+    "merge-reports": "node scripts/merge-reports.js",
+    "test:gherkin:ordered:report": "bash -lc \"npm run test:gherkin:ordered; code=$?; npm run merge-reports; npm run report; exit $code\"",
+    "report": "node scripts/generate-report.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@cucumber/cucumber": "^13.0.0",
     "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.1",
+    "@types/node": "^25.9.3",
     "cross-env": "^10.1.0",
-    "dotenv": "^17.4.2"
+    "cucumber-html-reporter": "^7.2.0",
+    "dotenv": "^17.4.2",
+    "playwright": "^1.61.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "csv-parser": "^3.2.1"
+    "csv-parser": "^3.2.1",
+    "mysql2": "^3.22.5"
   }
 }

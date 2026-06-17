@@ -1,0 +1,59 @@
+name: Gherkin CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to filter tests'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - 'all'
+          - '@regression'
+          - '@smoke'
+          - '@sanity'
+
+jobs:
+  gherkin-tests:
+    name: Run Gherkin (Cucumber) tests
+    runs-on: ubuntu-latest
+    
+    env:
+      TEST_ENV: qa
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit --progress=false; else npm install; fi
+
+    - name: Install Playwright browsers and dependencies
+      run: npx playwright install --with-deps
+
+    - name: Run Gherkin tests (ordered + merge + report)
+      run: npm run test:gherkin:ordered:report
+      env:
+        CI: true
+
+    - name: Upload cucumber reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: cucumber-reports
+        path: |
+          reports/**

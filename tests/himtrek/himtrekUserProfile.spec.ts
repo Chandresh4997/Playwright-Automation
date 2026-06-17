@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { HimTrekUserProfilePage  } from '../../pages/himtrek/himtrekUserProfile';
 
-test('Update User Profile and Browse Activity', async ({ page }) => {
+test('Update User Profile and Browse Activity @himtrek', async ({ page }) => {
   const userProfile = new HimTrekUserProfilePage(page);
 
   await userProfile.userProfileURL();

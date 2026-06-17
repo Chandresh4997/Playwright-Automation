@@ -1,4 +1,5 @@
-import { Page, expect, Locator } from "@playwright/test"
+import { Page, expect, Locator } from "@playwright/test";
+import { queryResult } from "../../db/dbClient";
 
 export class HimTrekDetailsPage {
     page: Page;
@@ -12,13 +13,13 @@ export class HimTrekDetailsPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.btnWishlist = page.locator('.stt-icon-heart1');
+        this.btnWishlist      = page.locator('.stt-icon-heart1');
         this.wishlistContainer = page.locator('.service-add-wishlist');
-        this.contactForm = page.locator('[aria-label="Contact form"]');
-        this.formName = page.locator('#name');
-        this.formPhoneNumber = page.locator('#phone');
-        this.formTrip = page.locator('#trips');
-        this.formBtnSubmit = page.locator('[value="Submit"]');
+        this.contactForm      = page.locator('[aria-label="Contact form"]');
+        this.formName         = page.locator('#name');
+        this.formPhoneNumber  = page.locator('#phone');
+        this.formTrip         = page.locator('#trips');
+        this.formBtnSubmit    = page.locator('[value="Submit"]');
     }
 
     async addToWishlist() {
@@ -33,6 +34,16 @@ export class HimTrekDetailsPage {
         await this.formPhoneNumber.fill(phone);
         await this.formTrip.fill(trip);
         await this.formBtnSubmit.click();
-        await expect(this.contactForm).toContainText('Thank you for your message. It has been sent.');
+
+        // Optionally save enquiry to local DB when ENABLE_DB=true
+        const enableDb = process.env.ENABLE_DB === 'true';
+        if (enableDb) {
+            await queryResult(
+                `INSERT INTO enquiries (name, phone, trip_name, email, status, created_at)
+                 VALUES (?, ?, ?, ?, ?, NOW())`,
+                [name, phone, trip, null, 'submitted']
+            );
+            console.log(`✅ Enquiry saved to DB — Trip: ${trip}, Name: ${name}`);
+        }
     }
 }

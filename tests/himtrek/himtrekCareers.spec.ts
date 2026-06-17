@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HimTrekHomePage } from '../../pages/himtrek/himtrekHome';
 import { HimTrekCareerPage } from '../../pages/himtrek/himtrekCareers';
 
-test('Browse Careers at HimTrek and View Terms and Conditions', async ({ page }) => {
+test('Browse Careers at HimTrek and View Terms and Conditions @himtrek', async ({ page }) => {
   const trekPlace = new HimTrekHomePage(page);
   const trekCareer = new HimTrekCareerPage(page);
 
