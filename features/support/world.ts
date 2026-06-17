@@ -2,8 +2,7 @@ import { Before, After, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
 import fs from 'fs';
 import { closeDb } from '../../db/dbClient';
 import dotenv from 'dotenv';
-// use require to avoid TypeScript resolution issues between playwright and @playwright/test
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const playwright = require('playwright');
 
 

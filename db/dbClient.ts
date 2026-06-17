@@ -17,7 +17,7 @@ export async function getDbClient(): Promise<PoolConnection> {
     return await pool.getConnection();
 }
 
-// ✅ For SELECT — returns typed rows
+// For SELECT — returns typed rows
 export async function queryRows<T extends RowDataPacket[]>(
     sql: string,
     params?: any[]
@@ -26,7 +26,7 @@ export async function queryRows<T extends RowDataPacket[]>(
     return rows;
 }
 
-// ✅ For INSERT / UPDATE / DELETE — returns result metadata
+// For INSERT / UPDATE / DELETE — returns result metadata
 export async function queryResult(
     sql: string,
     params?: any[]

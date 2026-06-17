@@ -4,7 +4,7 @@ import { queryRows, queryResult } from '../db/dbClient';
 import { HimTrekHomePage } from '../pages/himtrek/himtrekHome';
 import { HimTrekAuthPage } from '../pages/himtrek/himtrekAuth';
 
-// ✅ Typed DB helper exposed to every test
+// Typed DB helper exposed to every test
 type DbHelper = {
     select: <T extends RowDataPacket[]>(sql: string, params?: any[]) => Promise<T>;
     execute: (sql: string, params?: any[]) => Promise<ResultSetHeader>;
@@ -19,7 +19,7 @@ type MyFixtures = {
 
 export const test = base.extend<MyFixtures>({
 
-    // ✅ db fixture — clean typed API, no raw connection needed
+    // db fixture — clean typed API, no raw connection needed
     db: async ({}, use) => {
         const db: DbHelper = {
             select: (sql, params) => queryRows(sql, params),

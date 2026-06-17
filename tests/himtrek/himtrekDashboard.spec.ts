@@ -86,6 +86,6 @@ test.describe('Dashboard - DB Verification Tests @himtrek', () => {
         );
 
         expect(rows.length).toBeGreaterThan(0);
-        console.log('✅ Test log in DB:', rows[0]);
+        console.log('Test log in DB:', rows[0]);
     });
 });

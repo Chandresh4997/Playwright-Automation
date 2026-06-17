@@ -27,5 +27,3 @@ When('I submit an enquiry using {string} as email', async (_emailToken) => {
   const detail = new HimTrekDetailsPage(world.page);
   await detail.fillEnquiryForm('Chandresh Thakkar','9574678597','Dayara Bugyal Trek');
 });
-
-// DB verification removed from Gherkin flow; enquiries are saved by page object.
